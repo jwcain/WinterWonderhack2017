@@ -27,8 +27,10 @@ public class TextEntryManager : MonoBehaviour {
 		//So we screen specially for these two inputs
 		// Backspace == 8, Enter = 13
 		//We then check for the click so holding it down does not break things
-
-		if (Input.GetKeyDown(KeyCode.UpArrow)) {
+		if (Input.GetKeyDown(KeyCode.Home)) {
+			Application.Quit();
+		}
+		else if (Input.GetKeyDown(KeyCode.UpArrow)) {
 			//if we were not already using hte arrow keys, reset the counter
 			if ((lastInput == InputType.DownArrow || lastInput == InputType.UpArrow) == false) 
 				logProgress = -1;
@@ -48,6 +50,10 @@ public class TextEntryManager : MonoBehaviour {
 					Backspace();
 					lastInput = InputType.Backspace;
 				}
+			}
+			else if (Input.GetKeyDown(KeyCode.Delete)) {
+				Backspace();
+				lastInput = InputType.Backspace;
 			}
 			else if (str.Length == 1 && ((int)str[0]) == 13) {
 				if (Input.GetKeyDown(KeyCode.Return)) {
@@ -111,9 +117,8 @@ public class TextEntryManager : MonoBehaviour {
 	}
 
 	private void Enter() {
+		TextParser.Parse(textMesh.text);
 		LogInput();
-		//Debug.Log(textMesh.text); // Do something with the input
-
 		ClearInput();
 	}
 
