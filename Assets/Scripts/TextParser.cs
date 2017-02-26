@@ -62,7 +62,7 @@ public class TextParser : MonoBehaviour {
 		//If we didnt find a verb, cause and error and exit
 		if (verb == null) {
 			//Handle invalid input here
-			sendError("We did not find a verb!");
+			sendError("I'm not sure I know how to do that.");
 			return;
 		}
 
@@ -95,7 +95,7 @@ public class TextParser : MonoBehaviour {
 				//check if the list has anything left
 				if (fInput.Count < 1) {
 					//This input has failed
-					sendError("Did not find a matching noun for a modifier.");
+					sendError(c + " WHAT?");
 					return;
 				}
 				//Grab what we think is a noun
@@ -113,7 +113,8 @@ public class TextParser : MonoBehaviour {
 
 
 	private static void sendError(string errorText) {
-		Debug.Log(errorText);
+		//Debug.Log(errorText);
+		TextOutputManager.sendOutput(errorText + "\n");
 	}
 
 	private static string removeFirst(List<string> input) {
