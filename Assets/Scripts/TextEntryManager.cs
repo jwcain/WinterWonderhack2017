@@ -117,7 +117,7 @@ public class TextEntryManager : MonoBehaviour {
 	}
 
 	private void Enter() {
-		TextOutputManager.sendOutput("-> " + textMesh.text + "\n");
+		TextOutputManager.sendOutput("-> " + textMesh.text);
 		TextParser.Parse(textMesh.text);
 		LogInput();
 		ClearInput();

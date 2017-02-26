@@ -21,6 +21,6 @@ public class TextOutputManager : MonoBehaviour {
 	}
 
 	public static void sendOutput(string text) {
-		output.textMesh.text += text.ToUpper();
+		output.textMesh.text += (text.ToUpper() + "\n");
 	}
 }

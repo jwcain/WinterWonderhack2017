@@ -2,6 +2,9 @@
 using System.Collections;
 
 public class Item : MonoBehaviour {
+	public bool canPickup = false;
 	public string[] identifiers;
 	public string boxText;
+	public UseCase[] cases;
+
 }

@@ -114,7 +114,7 @@ public class TextParser : MonoBehaviour {
 
 	private static void sendError(string errorText) {
 		//Debug.Log(errorText);
-		TextOutputManager.sendOutput(errorText + "\n");
+		TextOutputManager.sendOutput(errorText);
 	}
 
 	private static string removeFirst(List<string> input) {
