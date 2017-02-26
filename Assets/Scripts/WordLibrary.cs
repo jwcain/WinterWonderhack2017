@@ -28,10 +28,13 @@ public class WordLibrary : MonoBehaviour {
 	public static string[] verb_Use_Input = new string[] {"USE"};
 	public static string[] verb_Use_Mod = new string[] {"ON", "WTIH"};
 
+	public static string[] verb_Talk_Input = new string[] {"TALK", "SPEAK","COMMUNICATE"};
+	public static string[] verb_Talk_Mod = new string[] {"TO", "WITH"};
+
 	public static string[] verb_ZZ_Input = new string[] {};
 	public static string[] verb_ZZ_Mod = new string[] {};
 
-	public static string[] verb_Exit_Input = new string[] {"CLOSEGAME"};
+	public static string[] verb_Exit_Input = new string[] {"CLOSEGAME", "CLOSESTORY"};
 	public static string[] verb_Exit_Mod = new string[] {};
 
 	//Synonym Library

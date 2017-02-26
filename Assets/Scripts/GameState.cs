@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class GameState : MonoBehaviour {
 
@@ -8,6 +9,7 @@ public class GameState : MonoBehaviour {
 	public static GameState currentState;
 	public Location currentLocation;
 	public IList<Item> inventory;
+	public static Dialog currentDialog;
 
 	public string defaultColor;
 	public string locationColor;
@@ -15,7 +17,9 @@ public class GameState : MonoBehaviour {
 	public string errorColor;
 	public string storyColor;
 
-	void Start() {
+	public Dialog endgameDialog;
+
+	void Awake() {
 		if (currentState == null) {
 			currentState = this;
 		}
@@ -58,7 +62,13 @@ public class GameState : MonoBehaviour {
 		removefromInvetory(i);
 		currentLocation.addItem(i);
 	}
-
+	public static void startDialog(Dialog d) {
+		GameState.currentDialog = d;
+		TextOutputManager.sendOutput(d.dialog[0].statement, GameState.currentState.storyColor);
+	}
+	public static void startEndgameScene() {
+		SceneManager.LoadScene("EndScene");
+	}
 
 	void Update() {
 		//This should be the only update method in the whooooole gammmmmmm3... I have no way to prove that

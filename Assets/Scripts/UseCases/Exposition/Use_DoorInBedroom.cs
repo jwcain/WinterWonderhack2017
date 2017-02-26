@@ -12,7 +12,7 @@ public class Use_DoorInBedroom : UseCase {
 		bool hasClothes = GameState.currentState.checkInventoryForItem("CLOTHES");
 		bool hasBackpack = GameState.currentState.checkInventoryForItem("BACKPACK");
 		if (hasClothes && hasBackpack) {
-			SceneManager.LoadScene("EndScreen");
+			SceneManager.LoadScene("HackathonExposition");
 		}
 		else if (hasClothes) {
 			TextOutputManager.sendOutput("How do you expect to do a hackathon without a computer? You’re not that good at programming.", GameState.currentState.storyColor);

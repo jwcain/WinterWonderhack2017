@@ -19,60 +19,113 @@ public class TextEntryManager : MonoBehaviour {
 			Debug.Break();
 		}
 	}
-	
+
 	// Update is called once per frame
 	void Update() {
 		string str = Input.inputString;
-		//Had issues with the input hanging up because backspace and enter are accepted by Input.inputString
-		//So we screen specially for these two inputs
-		// Backspace == 8, Enter = 13
-		//We then check for the click so holding it down does not break things
-		if (Input.GetKeyDown(KeyCode.Home)) {
-			Application.Quit();
-		}
-		else if (Input.GetKeyDown(KeyCode.UpArrow)) {
-			//if we were not already using hte arrow keys, reset the counter
-			if ((lastInput == InputType.DownArrow || lastInput == InputType.UpArrow) == false) 
-				logProgress = -1;
-			UpArrow();
-			lastInput = InputType.UpArrow;
-		}
-		else if (Input.GetKeyDown(KeyCode.DownArrow)) {
-			// if we where not already using the arrow keys, reset the counter
-			if ((lastInput == InputType.DownArrow || lastInput == InputType.UpArrow) == false) 
-				logProgress = -1;
-			DownArrow();
-			lastInput = InputType.DownArrow;
+
+		if (GameState.currentDialog != null) {
+			bool pressedEnter = false;
+			if (str.Length == 1 && ((int)str[0]) == 13) {
+				if (Input.GetKeyDown(KeyCode.Return)) {
+					pressedEnter = true;
+				}
+			}
+
+
+			if (pressedEnter) {
+				//Finish the response typing
+				//Do the next thing
+				//if there is nothing else, null our dialog and return
+				textMesh.text += GameState.currentDialog.dialog[GameState.currentDialog.Progress].response;
+				TextOutputManager.sendOutput(textMesh.text, GameState.currentState.itemColor);
+				ClearInput();
+				if (GameState.currentDialog.Progress >= GameState.currentDialog.dialog.Length - 1) {
+					// we are done
+					foreach(Item i in GameState.currentDialog.endOfDialogItems) {
+						GameState.addToInventory(i);
+					}
+					GameState.currentDialog = null;
+				}
+				else {
+					GameState.currentDialog.Progress++;
+					TextOutputManager.sendOutput(GameState.currentDialog.dialog[GameState.currentDialog.Progress].statement, GameState.currentState.storyColor);
+				}
+			}
+			else {
+				int count = str.Length;
+				string leftover;
+				string toType = "";
+			
+				if (count > GameState.currentDialog.dialog[GameState.currentDialog.Progress].response.Length -1) {
+					toType = GameState.currentDialog.dialog[GameState.currentDialog.Progress].response;
+					leftover = "";
+				}
+				else {
+					for (int i = 0; i < count; i++) { toType += GameState.currentDialog.dialog[GameState.currentDialog.Progress].response[i]; }
+					leftover = GameState.currentDialog.dialog[GameState.currentDialog.Progress].response.Substring(count);
+				}
+				//Debug.Log(leftover);
+				GameState.currentDialog.dialog[GameState.currentDialog.Progress].response = leftover;
+				textMesh.text += toType.ToUpper();
+			}
+			return;
+
+			//End of dialog stuff
 		}
 		else {
-			if (str.Length == 1 && ((int)str[0]) == 8) {
-				if (Input.GetKeyDown(KeyCode.Backspace)) {
+
+			//Had issues with the input hanging up because backspace and enter are accepted by Input.inputString
+			//So we screen specially for these two inputs
+			// Backspace == 8, Enter = 13
+			//We then check for the click so holding it down does not break things
+			if (Input.GetKeyDown(KeyCode.Home)) {
+				Application.Quit();
+			}
+			else if (Input.GetKeyDown(KeyCode.UpArrow)) {
+				//if we were not already using hte arrow keys, reset the counter
+				if ((lastInput == InputType.DownArrow || lastInput == InputType.UpArrow) == false) 
+					logProgress = -1;
+				UpArrow();
+				lastInput = InputType.UpArrow;
+			}
+			else if (Input.GetKeyDown(KeyCode.DownArrow)) {
+				// if we where not already using the arrow keys, reset the counter
+				if ((lastInput == InputType.DownArrow || lastInput == InputType.UpArrow) == false) 
+					logProgress = -1;
+				DownArrow();
+				lastInput = InputType.DownArrow;
+			}
+			else {
+				if (str.Length == 1 && ((int)str[0]) == 8) {
+					if (Input.GetKeyDown(KeyCode.Backspace)) {
+						Backspace();
+						lastInput = InputType.Backspace;
+					}
+				}
+				else if (Input.GetKeyDown(KeyCode.Delete)) {
 					Backspace();
 					lastInput = InputType.Backspace;
 				}
-			}
-			else if (Input.GetKeyDown(KeyCode.Delete)) {
-				Backspace();
-				lastInput = InputType.Backspace;
-			}
-			else if (str.Length == 1 && ((int)str[0]) == 13) {
-				if (Input.GetKeyDown(KeyCode.Return)) {
-					Enter();
-					lastInput = InputType.Enter;
+				else if (str.Length == 1 && ((int)str[0]) == 13) {
+					if (Input.GetKeyDown(KeyCode.Return)) {
+						Enter();
+						lastInput = InputType.Enter;
+					}
 				}
-			}
-			else if (Input.GetKeyDown(KeyCode.Escape)) {
-				Escape();
-				lastInput = InputType.Escape;
-			}
-			else if (Input.GetKeyDown(KeyCode.Tab)) {
-				Tab();
-				lastInput = InputType.Tab;
-			}
-			else if (str.Length > 0) {
-				//Debug.Log((int)str[0]);
-				textMesh.text = textMesh.text + str.ToUpper();
-				lastInput = InputType.Text;
+				else if (Input.GetKeyDown(KeyCode.Escape)) {
+					Escape();
+					lastInput = InputType.Escape;
+				}
+				else if (Input.GetKeyDown(KeyCode.Tab)) {
+					Tab();
+					lastInput = InputType.Tab;
+				}
+				else if (str.Length > 0) {
+					//Debug.Log((int)str[0]);
+					textMesh.text = textMesh.text + str.ToUpper();
+					lastInput = InputType.Text;
+				}
 			}
 		}
 	}

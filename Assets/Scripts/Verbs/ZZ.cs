@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-public class ZZ : Verb {
+public class ZZ: Verb {
 
 	void Start() {
 		verbText = WordLibrary.verb_ZZ_Input;

@@ -17,6 +17,12 @@ public class Look : Verb {
 			//or We are looking at an item
 			//or we are looking at a location
 			string noun = pairInputs[0][1];
+			Debug.Log(noun.Equals("TIREIRON"));
+			Debug.Log(GameState.currentState.currentLocation.identifiers[0].Equals("BASEMENT"));
+			if (noun.Equals("TIREIRON") && GameState.currentState.currentLocation.identifiers[0].Equals("BASEMENT")) {
+				GameState.startEndgameScene();
+			}
+
 
 			if (WordLibrary.compareStringToArray(noun, WordLibrary.syn_Room)) {
 				//Load up the room box text

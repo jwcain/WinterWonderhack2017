@@ -79,7 +79,7 @@ public class TextParser : MonoBehaviour {
 					foundMod = true;
 				}
 			}
-			Debug.Log("foundMod: " + foundMod);
+			//Debug.Log("foundMod: " + foundMod);
 			//based on weather or not we found a modifier, we do different things
 			if (foundMod == false) {
 				//since it was not a mod, we assume it was a noun add it to the pair and move on
