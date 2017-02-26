@@ -3,8 +3,12 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class ExpoisitionHack : MonoBehaviour {
-	private bool once;
+	private bool once = false;
+	private bool twice = false;
 	void Update() {
+		if (once && Input.GetKeyDown(KeyCode.Return))
+			twice = true;
+		
 		if (GameState.currentState.currentLocation.identifiers[0].Equals("AUDITORIUM") && !once) {
 		TextOutputManager.sendOutput("A student, pale as a ghost is crouching over a body. " +
 			"They have their hands clasped over the mouth. Your worst fears come to mind as you rush towards the stage. " +
@@ -13,7 +17,10 @@ public class ExpoisitionHack : MonoBehaviour {
 			once = true;
 		}
 
-		if (Input.GetKeyDown(KeyCode.Return) && once)
+
+		if (Input.GetKeyDown(KeyCode.Return) && once && twice) {
+			Debug.Log("yeah it just went");
 			SceneManager.LoadScene("OpenExploration");
+		}
 	}
 }
