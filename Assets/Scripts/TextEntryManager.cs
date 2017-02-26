@@ -117,7 +117,7 @@ public class TextEntryManager : MonoBehaviour {
 	}
 
 	private void Enter() {
-		TextOutputManager.sendOutput("-> " + textMesh.text);
+		TextOutputManager.sendOutput("-> " + textMesh.text, GameState.currentState.defaultColor);
 		TextParser.Parse(textMesh.text);
 		LogInput();
 		ClearInput();

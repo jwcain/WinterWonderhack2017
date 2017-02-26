@@ -21,17 +21,17 @@ public class Go : Verb {
 			if (gameState.currentLocation.checkIfConnectedLocation(noun)) {
 				Location newLocation = gameState.currentLocation.getLocationFromText(noun);
 				gameState.currentLocation = newLocation;
-				TextOutputManager.sendOutput("You are now in the " + newLocation.identifiers[0] + ".");
+				TextOutputManager.sendOutput("You are now in the " + newLocation.identifiers[0] + ".", GameState.currentState.defaultColor);
 			}
 			else {
-				TextOutputManager.sendOutput("I cannot go to " + noun + ".");
+				TextOutputManager.sendOutput("I cannot go to " + noun + ".", GameState.currentState.defaultColor);
 			}
 		}
 		else if (pairInputs.Count == 0) {
-			TextOutputManager.sendOutput("Where?");
+			TextOutputManager.sendOutput("Where?", GameState.currentState.defaultColor);
 		}
 		else  {
-			TextOutputManager.sendOutput("I don't know how to go there.");
+			TextOutputManager.sendOutput("I don't know how to go there.", GameState.currentState.defaultColor);
 		}
 	}
 }

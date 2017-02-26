@@ -9,6 +9,12 @@ public class GameState : MonoBehaviour {
 	public Location currentLocation;
 	public IList<Item> inventory;
 
+	public string defaultColor;
+	public string locationColor;
+	public string itemColor;
+	public string errorColor;
+	public string storyColor;
+
 	void Start() {
 		if (currentState == null) {
 			currentState = this;
@@ -47,7 +53,11 @@ public class GameState : MonoBehaviour {
 	}
 
 
-
+	public void moveInventoryItemToCurrentRoom(string s) {
+		Item i = checkInventoryForItem(s);
+		removefromInvetory(i);
+		currentLocation.addItem(i);
+	}
 
 
 	void Update() {

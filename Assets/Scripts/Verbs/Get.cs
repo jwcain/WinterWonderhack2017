@@ -22,21 +22,21 @@ public class Get : Verb {
 				if (item.canPickup == true) {
 					gameState.currentLocation.removeItem(item);
 					GameState.addToInventory(item);
-					TextOutputManager.sendOutput("You took the " + noun + ".");
+					TextOutputManager.sendOutput("You took the " + noun + ".", GameState.currentState.defaultColor);
 				}
 				else {
-					TextOutputManager.sendOutput("You cannot take " + noun + ".");
+					TextOutputManager.sendOutput("You cannot take " + noun + ".", GameState.currentState.defaultColor);
 				}
 			}
 			else if (gameState.checkInventoryForItem(noun) != null) {
-				TextOutputManager.sendOutput("You already have " + noun + ".");
+				TextOutputManager.sendOutput("You already have " + noun + ".", GameState.currentState.defaultColor);
 			}
 			else {
-				TextOutputManager.sendOutput("Take what?");
+				TextOutputManager.sendOutput("Take what?", GameState.currentState.defaultColor);
 			}
 		}
 		else {
-			TextOutputManager.sendOutput("Take what?");
+			TextOutputManager.sendOutput("Take what?", GameState.currentState.defaultColor);
 		}
 	}
 }

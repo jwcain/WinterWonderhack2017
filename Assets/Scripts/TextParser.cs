@@ -21,7 +21,6 @@ public class TextParser : MonoBehaviour {
 	}
 
 	public static void Parse(string input) {
-		Debug.Log("Starting to parse");
 
 		//Split the input on whitespace
 		string pattern = @"\s";
@@ -53,7 +52,6 @@ public class TextParser : MonoBehaviour {
 			foreach(string s in v.getVerbText()) {	
 				if (s.Equals(verbInput)) {
 					//Yay! we found matching verb
-					Debug.Log("Matching verb");
 					verb = v;
 				}
 			}
@@ -68,7 +66,6 @@ public class TextParser : MonoBehaviour {
 
 		List<string[]> modifierNounPairs = new List<string[]>();
 		while (fInput.Count > 0) {
-			Debug.Log("In Loop size " + fInput.Count);
 			string[] pair = new string[2]; // We use a array of two strings to hold the modifier noun pair
 			//Get the first token, there has to be one or else we could never loop here
 			string c = removeFirst(fInput);
@@ -106,7 +103,6 @@ public class TextParser : MonoBehaviour {
 				modifierNounPairs.Add(pair);
 			}
 		}
-		Debug.Log("Pair size "  + modifierNounPairs.Count);
 		//Call the action now that we have doen all the preprocessing
 		verb.Action(GameState.currentState, modifierNounPairs);
 	}
@@ -114,7 +110,7 @@ public class TextParser : MonoBehaviour {
 
 	private static void sendError(string errorText) {
 		//Debug.Log(errorText);
-		TextOutputManager.sendOutput(errorText);
+		TextOutputManager.sendOutput(errorText, GameState.currentState.errorColor);
 	}
 
 	private static string removeFirst(List<string> input) {

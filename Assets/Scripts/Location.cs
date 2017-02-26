@@ -20,7 +20,7 @@ public class Location : MonoBehaviour {
 		for (int i = 0; i < items.Length; i++) newItems[i] = items[i];
 		items = newItems;
 
-		items[itemCount] = newItem;
+		items[newItems.Length-1] = newItem;
 		itemCount++;
 	}
 	public void removeItem(Item item) {
@@ -103,17 +103,23 @@ public class Location : MonoBehaviour {
 		return "";
 	}
 
-	public string getContentsAsString() {
-		string ret = "Nearby Locations: \n";
-		foreach(Location l in connectedLocations) {
-			ret += l.identifiers[0] + "\n";
-		}
+	public void outputContentsAsString() {
+		TextOutputManager.sendOutput("Nearby Locations: ", GameState.currentState.defaultColor);
 
-		ret += "Nearby Things: \n";
-		foreach(Item i in items) {
-			ret += i.identifiers[0] + "\n";
+		{
+			string ret = "";
+			foreach(Location l in connectedLocations) {
+				ret += l.identifiers[0] + "   ";
+			}
+			TextOutputManager.sendOutput( ret, GameState.currentState.locationColor);	
 		}
-
-		return ret;
+		TextOutputManager.sendOutput("Nearby Things: ", GameState.currentState.defaultColor);
+		{
+			string ret = "";
+			foreach(Item l in items) {
+				ret += l.identifiers[0] + "   ";
+			}
+			TextOutputManager.sendOutput( ret, GameState.currentState.itemColor);	
+		}
 	}
 }

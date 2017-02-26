@@ -20,19 +20,20 @@ public class Look : Verb {
 
 			if (WordLibrary.compareStringToArray(noun, WordLibrary.syn_Room)) {
 				//Load up the room box text
-				TextOutputManager.sendOutput(gameState.currentLocation.boxText);
-				TextOutputManager.sendOutput(gameState.currentLocation.getContentsAsString());
+				TextOutputManager.sendOutput(gameState.currentLocation.boxText,GameState.currentState.storyColor);
+				gameState.currentLocation.outputContentsAsString();
 			}
 			else if (WordLibrary.compareStringToArray(noun, WordLibrary.syn_Inventory)) {
 				//Load up the room box text
-				TextOutputManager.sendOutput(GameState.getItemsAsText());
+				TextOutputManager.sendOutput(GameState.getItemsAsText(), GameState.currentState.itemColor);
 			}
 			else if (gameState.currentLocation.checkIfConnectedLocation(noun)) {
 				//Load up the room box text for the other room
 				TextOutputManager.sendOutput(
 					gameState.currentLocation.getRelativeBoxTextForLocation(
 						gameState.currentLocation.getLocationFromText(noun)
-					)
+					),
+					GameState.currentState.storyColor
 				);
 			}
 			else if (gameState.currentLocation.checkIfContainsItem(noun)) {
@@ -40,18 +41,18 @@ public class Look : Verb {
 				//get the item
 				//get the items box text.
 				//print it
-				TextOutputManager.sendOutput(gameState.currentLocation.getItemFromText(noun).boxText);
+				TextOutputManager.sendOutput(gameState.currentLocation.getItemFromText(noun).boxText, GameState.currentState.storyColor);
 			}
 			else if (gameState.checkInventoryForItem(noun) != null) {
-				TextOutputManager.sendOutput(gameState.checkInventoryForItem(noun).boxText);
+				TextOutputManager.sendOutput(gameState.checkInventoryForItem(noun).boxText, GameState.currentState.storyColor);
 			}
 			else {
-				TextOutputManager.sendOutput("I dont see a " + noun + ".");
+				TextOutputManager.sendOutput("I dont see a " + noun + ".", GameState.currentState.defaultColor);
 			}
 		}
 		else if (pairInputs.Count == 0) {
-			TextOutputManager.sendOutput(gameState.currentLocation.boxText);
-			TextOutputManager.sendOutput(gameState.currentLocation.getContentsAsString());
+			TextOutputManager.sendOutput(gameState.currentLocation.boxText, GameState.currentState.storyColor);
+			gameState.currentLocation.outputContentsAsString();
 		}
 	}
 

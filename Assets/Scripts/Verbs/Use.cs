@@ -31,15 +31,15 @@ public class Use : Verb {
 						return;
 					}
 				}
-				TextOutputManager.sendOutput("I cannot use " + noun + " like that.");
+				TextOutputManager.sendOutput("I cannot use " + noun + " like that.", GameState.currentState.defaultColor);
 			}
 			else {
-				TextOutputManager.sendOutput("I cannot use that.");
+				TextOutputManager.sendOutput("I cannot use that.", GameState.currentState.defaultColor);
 				return;
 			}
 		}
 		else {
-			TextOutputManager.sendOutput("Use what, how?");
+			TextOutputManager.sendOutput("Use what, how?", GameState.currentState.defaultColor);
 		}
 	}
 }

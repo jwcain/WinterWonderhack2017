@@ -31,7 +31,7 @@ public class WordLibrary : MonoBehaviour {
 	public static string[] verb_ZZ_Input = new string[] {};
 	public static string[] verb_ZZ_Mod = new string[] {};
 
-	public static string[] verb_Exit_Input = new string[] {"CLOSE", "EXIT", "QUIT"};
+	public static string[] verb_Exit_Input = new string[] {"CLOSEGAME"};
 	public static string[] verb_Exit_Mod = new string[] {};
 
 	//Synonym Library
